@@ -80,6 +80,7 @@ public class ListController {
 			model.addAttribute("output", Helper.getListFromFile());
 
 		} catch (Exception e) {
+			e.printStackTrace();
 
 		}
 		return "index";

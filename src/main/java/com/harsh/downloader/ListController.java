@@ -19,21 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class ListController {
-	
+
 	String FILE_PATH = Helper.FILE_PATH;
-	
+
 	@PostMapping("/clearList")
 	public String clearList(Model model) throws IOException {
 		// Purge List
 		FileWriter fw = new FileWriter(FILE_PATH, false); // 'false' disables append mode
 		fw.write(""); // write nothing = clear
 		fw.close();
-		System.out.println("File cleared successfully.");	
+		System.out.println("File cleared successfully.");
 		model.addAttribute("output", "File cleared successfully");
-		return "index";		
+		return "index";
 	}
-	
-	
 
 	@PostMapping("/addToList")
 	public String addToList(@RequestParam(name = "url") String url, Model model) throws IOException {
@@ -61,7 +59,7 @@ public class ListController {
 			// Add new URl to top of file., Dont add if Duplicate
 			if (!urlListOld.contains(url)) {
 				urlListOld.add(0, url);
-				//urlListOld.addFirst(url);
+				// urlListOld.addFirst(url);
 			}
 
 			// Remove duplicate - Dont add if duplicate.

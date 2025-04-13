@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class WebController {
 
-
 	String FILE_PATH = Helper.FILE_PATH;
 
 	@GetMapping("/")
@@ -30,5 +29,5 @@ public class WebController {
 		model.addAttribute("output", Helper.getListFromFile());
 		return "index"; // Returns index.html from resources/templates
 	}
-	
+
 }

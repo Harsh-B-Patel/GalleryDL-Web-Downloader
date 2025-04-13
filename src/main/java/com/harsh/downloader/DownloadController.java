@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class DownloadController {
-	
+
 	String FILE_PATH = Helper.FILE_PATH;
-		
+
 	@PostMapping("/download")
 	public String download(Model model) {
 		try {

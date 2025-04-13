@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery-dl Web App</title>
+</head>
+<body>
+  <h1>Add to Download List</h1>
+
+  <div style="display: flex; gap: 10px;">
+
+	
+	<form action="/addToList" method="post">
+	  <label for="url">Enter URL:</label>
+	  <input type="text" id="url" name="url" required />
+	  <button type="submit">Add To List</button>
+	</form>
+	
+
+
+	</div>
+	
+	<br />
+	<div style="display: flex; gap: 10px;">
+    <form action="/clearList" method="post">
+      <button type="submit">Clear List</button>
+    </form>
+
+	<br />
+	<form action="/download" method="post">
+	  <button type="submit">Download List</button>
+	</form>
+	
+	</div>
+	
+	<br />
+	<pre th:text="${output1}"></pre>
+	<br />
+	<pre th:text="${output2}"></pre>
+
+  <h1>Current List:</h1>
+  <pre th:text="${output}"></pre>
+</body>
+</html>

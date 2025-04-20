@@ -18,9 +18,12 @@ public class DownloadController {
 	public String download(Model model) {
 		try {
 
-			// Get List from URL.txt
-			String exePath = "gallery-dl.exe";
-			ProcessBuilder processBuilder = new ProcessBuilder(exePath, "-i", FILE_PATH);
+			// Run windows EXE
+			//String exePath = "./gallery-dl.exe";
+			
+			// Run pythin Dl directly in docker container
+			String command = "gallery-dl";
+			ProcessBuilder processBuilder = new ProcessBuilder(command, "-i", FILE_PATH);
 			processBuilder.redirectErrorStream(true);
 			Process process = processBuilder.start();
 

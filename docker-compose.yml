@@ -1,13 +1,11 @@
 version: "3.8"
 
 services:
-  spring-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  downloader:
+    image: harshbpatel/downloader-app:latest
     ports:
-      - "8081:8080"  # Map container port 8080 to host port 8081
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod # Example environment variable, adjust as needed
+      - "8082:8080"  # Map container port 8080 to host port 8082
     volumes:
-      - ./target:/app/target # Optional: Bind the target directory to allow updates
+      - ./downloads:/gallery-dl # Optional: Bind the target directory 
+    restart: unless-stopped
+	  

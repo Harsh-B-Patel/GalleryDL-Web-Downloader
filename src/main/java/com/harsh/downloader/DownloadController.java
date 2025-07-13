@@ -21,13 +21,26 @@ public class DownloadController {
 			// Run windows EXE
 			//String exePath = "./gallery-dl.exe";
 			
-			// Run pythin Dl directly in docker container
-			String command = "gallery-dl";
-			ProcessBuilder processBuilder = new ProcessBuilder(command, "-i", FILE_PATH);
+			// Run python Dl directly in docker container
+			
+			/*
+			 * String command = "gallery-dl"; ProcessBuilder processBuilder = new
+			 * ProcessBuilder(command, "-i", FILE_PATH);
+			 */
+			
+			// Modifying code for Bunkr API custom endpoint. 
+            // Build the process with gallery-dl and custom endpoint
+            ProcessBuilder processBuilder = new ProcessBuilder(
+                "gallery-dl",
+                "-o", "extractor.bunkr.endpoint=/api/_001_v2",
+                "-i", FILE_PATH
+            );
+			
 			processBuilder.redirectErrorStream(true);
 			Process process = processBuilder.start();
 
 			// model.addAttribute("output1", "Starting Download...");
+			// Capture output
 			StringBuilder output = new StringBuilder();
 			try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
 				String line;
@@ -37,11 +50,10 @@ public class DownloadController {
 				}
 			}
 			int exitCode = process.waitFor();
-			// model.addAttribute("output2", "Exit Code: " + exitCode + "\n" +
-			// output.toString());
 			model.addAttribute("output2", output.toString());
 
-			// Purge List
+			
+			// Purge List file
 			FileWriter fw = new FileWriter(FILE_PATH, false); // 'false' disables append mode
 			fw.write(""); // write nothing = clear
 			fw.close();

@@ -1,0 +1,14 @@
+mvn clean install -DskipTests
+
+docker build -t downloader-app:latest .
+
+// docker run -p 8081:8080 downloader-app:latest
+
+docker image ls
+
+docker tag IMAGEID harshbpatel/downloader-app:latest
+
+
+
+
+docker push harshbpatel/downloader-app:latest

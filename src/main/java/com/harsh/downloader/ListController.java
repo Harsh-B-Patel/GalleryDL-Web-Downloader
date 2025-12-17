@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ListController {
 
 	String FILE_PATH = Helper.FILE_PATH;
+	String FOLDER_PATH = Helper.FOLDER_PATH;
 
 	@PostMapping("/clearList")
 	public String clearList(Model model) throws IOException {
@@ -28,22 +29,32 @@ public class ListController {
 		FileWriter fw = new FileWriter(FILE_PATH, false); // 'false' disables append mode
 		fw.write(""); // write nothing = clear
 		fw.close();
+
+		FileWriter fw2 = new FileWriter(FOLDER_PATH, false); // 'false' disables append mode
+		fw2.write(""); // write nothing = clear
+		fw2.close();
+
 		System.out.println("File cleared successfully.");
 		model.addAttribute("output", "File cleared successfully");
 		return "index";
 	}
 
 	@PostMapping("/addToList")
-	public String addToList(@RequestParam(name = "url") String url, Model model) throws IOException {
-		List<String> urlListOld = new ArrayList<String>();
-		List<String> urlList = new ArrayList<String>();
+	public String addToList(@RequestParam(name = "url") String url, @RequestParam(name = "folder") String folder,
+			Model model) throws IOException {
+
 		// String filePath = "./url.txt";
 
-		// Create a new URL.txt file on filepath if it does not exist
-		File file = new File(FILE_PATH);
-		file.createNewFile();
+
 
 		try {
+
+			// Create a new URL.txt file on filepath if it does not exist
+			File file = new File(FILE_PATH);
+			file.createNewFile();
+			
+			List<String> urlListOld = new ArrayList<String>();
+			List<String> urlList = new ArrayList<String>();
 
 			// get URL from Front end
 			System.out.println("WebController.download:- URL to be added is : " + url);
@@ -74,13 +85,49 @@ public class ListController {
 			}
 			writer.close();
 
-			// print URL list from ArrayList back on Front end
-			model.addAttribute("output", Helper.getListFromFile());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		try {
+			// Create a new URL.txt file on filepath if it does not exist
+			File file = new File(FOLDER_PATH);
+			file.createNewFile();
+			
+			List<String> urlListOld = new ArrayList<String>();
+			List<String> urlList = new ArrayList<String>();
+
+			// get URL from Front end
+			System.out.println("WebController.download:- URL to be added is : " + folder);
+
+			// Get Existing URLs from file called URL.txt
+			BufferedReader reader = new BufferedReader(new FileReader(FOLDER_PATH));
+			String currentLine;
+			while ((currentLine = reader.readLine()) != null) {
+				urlListOld.add(currentLine);
+			}
+			reader.close();
+
+			// Add new folder name to top of file.
+			urlListOld.add(0, folder);
+
+			// Clear file and write arraylist to it.
+			BufferedWriter writer = new BufferedWriter(new FileWriter(FOLDER_PATH));
+			for (String line : urlListOld) {
+				writer.write(line);
+				writer.newLine();
+			}
+			writer.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
+
+		// print URL list from ArrayList back on Front end
+		model.addAttribute("output", Helper.getListFromFile());
+
 		return "index";
 	}
 

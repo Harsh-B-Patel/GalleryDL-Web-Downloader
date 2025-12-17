@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class DownloadController {
 
 	String FILE_PATH = Helper.FILE_PATH;
-	String folderName = "test";
+	String FOLDER_PATH = Helper.FOLDER_PATH;
 
 	@PostMapping("/download")
 	public String download(Model model) {
 		try {
+			
 
 			// Run windows EXE
 			//String exePath = "./gallery-dl.exe";
@@ -34,7 +35,7 @@ public class DownloadController {
             ProcessBuilder processBuilder = new ProcessBuilder(
                 "gallery-dl",
                 "-o", "extractor.bunkr.endpoint=/api/_001_v2",
-                "-D", folderName,
+                "-D", FOLDER_PATH,
                 "-i", FILE_PATH 
             );
 			

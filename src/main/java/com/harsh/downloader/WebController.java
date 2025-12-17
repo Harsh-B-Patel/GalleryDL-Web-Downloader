@@ -26,6 +26,8 @@ public class WebController {
 
 	@GetMapping("/")
 	public String index(Model model) throws IOException {
+		
+		// Output already stored in file
 		model.addAttribute("output", Helper.getListFromFile());
 		return "index"; // Returns index.html from resources/templates
 	}

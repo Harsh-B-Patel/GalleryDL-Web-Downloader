@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DownloadController {
 
 	String FILE_PATH = Helper.FILE_PATH;
+	String folderName = "test";
 
 	@PostMapping("/download")
 	public String download(Model model) {
@@ -33,7 +34,8 @@ public class DownloadController {
             ProcessBuilder processBuilder = new ProcessBuilder(
                 "gallery-dl",
                 "-o", "extractor.bunkr.endpoint=/api/_001_v2",
-                "-i", FILE_PATH
+                "-D", folderName,
+                "-i", FILE_PATH 
             );
 			
 			processBuilder.redirectErrorStream(true);

@@ -7,7 +7,7 @@ A container front end for Gallry-DL CLI to download Playlists, pictures and vide
 
 
 ## Key product features
-- Uses Gallery-Dl project to downlaod list of playlists, pictures or Videos.
+- Uses  [Gallery-Dl](https://github.com/mikf/gallery-dl) project to downlaod list of playlists, pictures or Videos. -
 - Added functionality for list of URLs to download.
 - Created a front end to easily add URLs. 
 

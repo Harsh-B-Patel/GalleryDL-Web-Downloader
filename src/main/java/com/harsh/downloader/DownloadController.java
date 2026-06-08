@@ -18,23 +18,14 @@ public class DownloadController {
 	public String download(Model model) {
 		try {
 
-			// Run windows EXE
-			//String exePath = "./gallery-dl.exe";
-			
-			// Run python Dl directly in docker container
-			
-			/*
-			 * String command = "gallery-dl"; ProcessBuilder processBuilder = new
-			 * ProcessBuilder(command, "-i", FILE_PATH);
-			 */
-			
+			// windows EXE - depreciated!			
+			// Run python Dl directly here - pip install gallery-dl
+			// and in docker container using the docker file
+						
 			// Modifying code for Bunkr API custom endpoint. 
             // Build the process with gallery-dl and custom endpoint
-            ProcessBuilder processBuilder = new ProcessBuilder(
-                "gallery-dl",
-                "-o", "extractor.bunkr.endpoint=/api/_001_v2",
-                "-i", FILE_PATH
-            );
+			String command = "gallery-dl";
+			ProcessBuilder processBuilder = new ProcessBuilder(command, "-i", FILE_PATH);
 			
 			processBuilder.redirectErrorStream(true);
 			Process process = processBuilder.start();

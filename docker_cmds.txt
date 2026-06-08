@@ -8,7 +8,6 @@ docker image ls
 
 docker tag IMAGEID harshbpatel/downloader-app:latest
 
-
-
+docker login
 
 docker push harshbpatel/downloader-app:latest

@@ -1,0 +1,7 @@
+Python cmds
+
+RUN python3 -m venv /opt/venv
+RUN /opt/venv/bin/pip install --no-cache-dir gallery-dl
+
+
+-- untested

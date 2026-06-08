@@ -1,50 +1,47 @@
 package com.harsh.downloader;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Helper {
 
 	static String FILE_PATH = "./url.txt";
-
 	static String FOLDER_PATH = "./folder.txt";
+	
+	static List<String> getListFromFile(String path) throws IOException {
 
-	static String getListFromFile() throws IOException {
+		List<String> list = new ArrayList<String>();
 
-		List<String> urlList = new ArrayList<String>();
-		// String filePath = "./url.txt";
-
-		// Create a new URL.txt file on filepath if it does not exist
-		File file = new File(FILE_PATH);
+		// Create a new .txt file on filepath if it does not exist
+		File file = new File(path);
 		file.createNewFile();
 
-		// Get Existing URLs from file called URL.txt
-		BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+		// Get Existing from file called .txt
+		BufferedReader reader = new BufferedReader(new FileReader(path));
 		String currentLine;
 		while ((currentLine = reader.readLine()) != null) {
-			urlList.add(currentLine);
+			list.add(currentLine);
 		}
 		reader.close();
 
-		List<String> folderList = new ArrayList<String>();
-		// String filePath = "./url.txt";
+		return list;
 
-		// Create a new URL.txt file on filepath if it does not exist
-		File file2 = new File(FOLDER_PATH);
-		file2.createNewFile();
+	}
 
-		// Get Existing URLs from file called URL.txt
-		BufferedReader reader2 = new BufferedReader(new FileReader(FOLDER_PATH));
-		String currentLine2;
-		while ((currentLine2 = reader2.readLine()) != null) {
-			folderList.add(currentLine2);
-		}
-		reader.close();
+	static String getListFromFileAsString() throws IOException {
+		
 
+		List<String> urlList = getListFromFile(FILE_PATH);
+		List<String> folderList = getListFromFile(FOLDER_PATH);
+		
 		// print list from file back on Front end
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < urlList.size(); i++) {
@@ -56,5 +53,55 @@ public class Helper {
 		return result;
 
 	}
+	
+
+	static void addLineToFile(String filePath, String value, boolean preventDuplicate) throws IOException {
+
+		System.out.println("Staring addLineToFile  for file " + filePath + "  for " + value );
+		File file = new File(filePath);
+		file.createNewFile();
+
+		List<String> existingLines = new ArrayList<>();
+
+		BufferedReader reader = new BufferedReader(new FileReader(filePath));
+		String currentLine;
+		while ((currentLine = reader.readLine()) != null) {
+			existingLines.add(currentLine);
+		}
+		reader.close();
+
+		// Add to top (if not duplicate)
+		if (!preventDuplicate || !existingLines.contains(value)) {
+			existingLines.add(0, value);
+		}
+
+		// Remove duplicates if needed
+		if (preventDuplicate) {
+			Set<String> set = new LinkedHashSet<>(existingLines);
+			existingLines = new ArrayList<>(set);
+		}
+
+		BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+		for (String line : existingLines) {
+			writer.write(line);
+			writer.newLine();
+		}
+		writer.close();
+		System.out.println("Wrote addLineToFile  for file " + filePath + "  for " + value );
+
+	}
+	
+	static void clearFile(String path) throws Exception {
+	    try (FileWriter fw = new FileWriter(path, false)) {
+	        fw.write("");
+	        fw.close();
+	    }
+	}
+
+	
+	
+
+	
+	
 
 }

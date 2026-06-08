@@ -15,7 +15,7 @@ public class WebController {
 	public String index(Model model) throws IOException {
 		
 		// Output already stored in file
-		model.addAttribute("output", Helper.getListFromFile());
+		model.addAttribute("output", Helper.getListFromFileAsString());
 		return "index"; // Returns index.html from resources/templates
 	}
 

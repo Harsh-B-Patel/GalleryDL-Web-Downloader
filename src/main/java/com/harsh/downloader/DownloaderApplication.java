@@ -2,6 +2,7 @@ package com.harsh.downloader;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+
 @SpringBootApplication
+@EnableScheduling
 public class DownloaderApplication {
 
 	public static void main(String[] args) {

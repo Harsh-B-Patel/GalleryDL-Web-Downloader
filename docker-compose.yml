@@ -2,10 +2,9 @@ version: "3.8"
 
 services:
   downloader:
-    image: harshbpatel/downloader-app:latest
+    image: downloader-app:latest
     ports:
       - "8082:8080"  # Map container port 8080 to host port 8082
     volumes:
       - ./downloads:/gallery-dl # Optional: Bind the target directory 
     restart: unless-stopped
-	  

@@ -1,43 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery-dl Web App</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery-dl Web App</title>
 </head>
+
 <body>
-  <h1>Downloading List</h1>
 
-  <div style="display: flex; gap: 10px;">
+    <h1>Downloading List</h1>
 
-	
-	<form action="/addToList" method="post">
-	  <label for="url">Enter URL:</label>
-	  <input type="text" id="url" name="url" required />
-	  <button type="submit">Add To List</button>
-	</form>
-	
+    <!-- Add URL -->
+    <div style="display: flex; gap: 10px;">
 
-	</div>
-	
-	<br />
-	<div style="display: flex; gap: 10px;">
-    <form action="/clearList" method="post">
-      <button type="submit">Clear List</button>
-    </form>
+        <form action="/addToList" method="post">
+            <label for="url">Enter URL:</label>
+            <input type="text" id="url" name="url" required />
+            <button type="submit">Add To List</button>
+        </form>
 
-	<br />
-	<form action="/download" method="post">
-	  <button type="submit">Download List</button>
-	</form>
-	
-	</div>
-	
-	<br />
-	<pre th:text="${output1}"></pre>
-	<br />
-	<pre th:text="${output2}"></pre>
+    </div>
 
-  <pre th:text="${output}"></pre>
+    <br />
+
+    <!-- List Actions -->
+    <div style="display: flex; gap: 10px;">
+
+        <form action="/viewCurrentList" method="get">
+            <button type="submit">View Current List</button>
+        </form>
+
+        <form action="/viewHistory" method="get">
+            <button type="submit">View History</button>
+        </form>
+
+        <form action="/clearList" method="post">
+            <button type="submit">Clear List</button>
+        </form>
+
+        <form action="/download" method="post">
+            <button type="submit">Download List</button>
+        </form>
+
+    </div>
+
+    <br />
+
+    <!-- Output Messages -->
+    <pre th:text="${output1}"></pre>
+    <br />
+    <pre th:text="${output2}"></pre>
+
+    <hr />
+
+    <!-- Display Selected List -->
+    <h2 th:text="${listTitle} ?: 'Current List:'">Current List:</h2>
+
+    <pre th:text="${output}"></pre>
+
 </body>
+
 </html>
